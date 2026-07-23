@@ -8,7 +8,7 @@ namespace WebApplication2.Controllers
     public class EmployeeController : Controller
     {
        //Employee obj = new Employee();
-        private readonly  IEmployee _emp;  /*saumit*/
+        private readonly  IEmployee _emp;  /*saumit sahu*/
         public EmployeeController(IEmployee emp)
         {
             _emp=emp;
