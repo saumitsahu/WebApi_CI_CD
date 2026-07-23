@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\WebApplication2\\WebApplication2\\WebApplication2.csproj",
+      "projectUniqueName": "D:\\WebApi_CI_CD\\WebApplication2\\WebApplication2.csproj",
       "projectName": "WebApplication2",
-      "projectPath": "D:\\WebApplication2\\WebApplication2\\WebApplication2.csproj",
+      "projectPath": "D:\\WebApi_CI_CD\\WebApplication2\\WebApplication2.csproj",
       "packagesPath": "C:\\Users\\saumi\\.nuget\\packages\\",
-      "outputPath": "D:\\WebApplication2\\WebApplication2\\obj\\",
+      "outputPath": "D:\\WebApi_CI_CD\\WebApplication2\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\saumi\\AppData\\Roaming\\NuGet\\NuGet.Config",
