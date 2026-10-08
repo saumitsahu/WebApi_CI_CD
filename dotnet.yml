@@ -3,7 +3,7 @@ name: ASP.NET Core CI
 on:
   push:
     branches:
-      - main
+      - saumit_CI_CD
 
 jobs:
   build:
@@ -20,13 +20,13 @@ jobs:
         dotnet-version: 8.0.x
 
     - name: Restore
-      run: dotnet restore
+      run: dotnet restore WebApplication2/WebApplication2.csproj
 
     - name: Build
-      run: dotnet build --configuration Release
+      run: dotnet build WebApplication2/WebApplication2.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test --no-build --verbosity normal
+      run: dotnet test WebApplication2/WebApplication2.csproj --configuration Release --no-build --verbosity normal
 
     - name: Publish
-      run: dotnet publish -c Release -o publish
+      run: dotnet publish WebApplication2/WebApplication2.csproj --configuration Release --output publish --no-build
