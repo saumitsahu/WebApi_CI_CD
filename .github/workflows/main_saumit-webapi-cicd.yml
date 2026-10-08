@@ -6,7 +6,7 @@ name: Build and deploy ASP.Net Core app to Azure Web App - saumit-webapi-cicd
 on:
   push:
     branches:
-      - main
+      - saumit_CI_CD
   workflow_dispatch:
 
 jobs:
