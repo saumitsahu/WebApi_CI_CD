@@ -1,0 +1,72 @@
+# Docs for the Azure Web Apps Deploy action:
+# https://github.com/Azure/webapps-deploy
+
+name: Build and deploy ASP.Net Core app to Azure Web App - saumit-webapi-cicd
+
+on:
+  push:
+    branches:
+      - saumit_CI_CD
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: windows-latest
+
+    permissions:
+      contents: read
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up .NET 8
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.x'
+
+      - name: Restore
+        run: dotnet restore WebApplication2/WebApplication2.csproj
+
+      - name: Build with dotnet
+        run: dotnet build WebApplication2/WebApplication2.csproj --configuration Release --no-restore
+
+      - name: Test
+        run: dotnet test WebApplication2/WebApplication2.csproj --configuration Release --no-build --verbosity normal
+
+      - name: dotnet publish
+        run: dotnet publish WebApplication2/WebApplication2.csproj --configuration Release --output "${{env.DOTNET_ROOT}}/myapp" --no-build
+
+      - name: Upload artifact for deployment job
+        uses: actions/upload-artifact@v4
+        with:
+          name: .net-app
+          path: ${{env.DOTNET_ROOT}}/myapp
+
+  deploy:
+    runs-on: windows-latest
+    needs: build
+
+    permissions:
+      id-token: write
+      contents: read
+
+    steps:
+      - name: Download artifact from build job
+        uses: actions/download-artifact@v4
+        with:
+          name: .net-app
+
+      - name: Login to Azure
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_1F65F768C0174253A896395A842183B4 }}
+          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_C3CA7EBDD7034324A326F783AE8325C6 }}
+          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_4FD2B7588A694905AF90FB045BDB97EE }}
+
+      - name: Deploy to Azure Web App
+        id: deploy-to-webapp
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: 'saumit-webapi-cicd'
+          slot-name: 'Production'
+          package: .
